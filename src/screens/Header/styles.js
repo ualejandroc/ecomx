@@ -15,6 +15,8 @@ export default {
     backgroundColor: "#eee"
   },
 
-
+  mb: {
+    marginTop: 15
+  },
 
 };

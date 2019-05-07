@@ -285,7 +285,7 @@ class PostForm extends Component {
           if (this.readyState === 4) {
             self.types= JSON.parse(this.responseText) ;
              
-              
+            console.log("Get categegories:  "+this.responseText)
             self.setState({types:JSON.parse(this.responseText)});
           
           }
@@ -303,7 +303,7 @@ class PostForm extends Component {
       });
       
       xhr.open("POST", "https://crearstore.com/wp-json/jwt-auth/v1/token");
-      xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Content-type", "multipart/form-data");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("postman-token", "f44d488a-4ee4-a32c-1324-fad1c2d837ca");
       
@@ -348,13 +348,13 @@ class PostForm extends Component {
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function () {
+        await xhr.addEventListener("readystatechange", function () {
           if (this.readyState === 4) {
             self.types= JSON.parse(this.responseText) ;
              
-           // setTimeout(()=>{
+            setTimeout(()=>{
               self.loadUserTypes(self.types);
-           //  },5000);   
+             },4000);   
             self.setState({types:JSON.parse(this.responseText)});            
           
             return  JSON.parse(this.responseText);
@@ -367,12 +367,12 @@ class PostForm extends Component {
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "467a136a-44be-41d2-8265-cae0afa8fe3f");
 
-        xhr.send();  
+        await xhr.send();  
       }
 
       /***************************/
 
-      fillCategories(){
+      async fillCategories(){
         var self = this;
         var token= self.token; 
 
@@ -392,20 +392,18 @@ class PostForm extends Component {
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "467a136a-44be-41d2-8265-cae0afa8fe3f");
 
-        xhr.send();  
+        await xhr.send();  
       }
 
     
   /******Funciones *** */
 
-  componentDidUpdate(){
-  }
-
-
+ 
   //Carga drop down de categorias
   loadUserTypes() {
     var self= this;   
    
+      console.log("categorias:  "  + self.state.types[0])
         if(self.state.types!=''){     
           self.state.types.map(user => (
          self.types=   <Picker.Item value={user.id} label={user.name} key={user.slug} />
@@ -665,6 +663,7 @@ class PostForm extends Component {
           
             <Text style={styles.separation}></Text>
             {/*
+            
           <CustomWebView 
                 style={styles.containers}
                 source={{html: this.HTML}}

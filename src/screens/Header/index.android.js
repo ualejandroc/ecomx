@@ -12,10 +12,21 @@ import {
   Body,
   Text,
   ListItem,
-  List
+  List,
+  Card,
+  CardItem,
+  Thumbnail,
+  Image
+
 } from "native-base";
 
+import {Dimensions} from 'react-native'
+
 import styles from "./styles";
+const logo = require("../../../assets/logo.png");
+const cardImage = require("../../../assets/drawer-cover.png");
+
+
 
 const datas = [
   {
@@ -26,46 +37,12 @@ const datas = [
     route: "Header2",
     text: "Icon Buttons"
   },
-  {
-    route: "Header3",
-    text: "Text Buttons"
-  },
-  {
-    route: "Header4",
-    text: "Icon Button and Text Button"
-  },
-  {
-    route: "Header5",
-    text: "Icon and Text Button"
-  },
-  {
-    route: "Header6",
-    text: "Multiple Icon Buttons"
-  },
-  {
-    route: "Header7",
-    text: "Title and Subtitle"
-  },
-  {
-    route: "Header8",
-    text: "Custom Background Color"
-  },
-  {
-    route: "HeaderSpan",
-    text: "Header Span"
-  },
-  {
-    route: "HeaderNoShadow",
-    text: "Header without shadow"
-  },
-  {
-    route: "HeaderNoLeft",
-    text: "Header noLeft"
-  }
+ 
 ];
 
 class HeaderNB extends Component {
   // eslint-disable-line
+   deviceWidth = Dimensions.get("window").width;
 
   render() {
     return (
@@ -80,30 +57,59 @@ class HeaderNB extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Headers</Title>
+            <Title>Informacion</Title>
           </Body>
           <Right />
         </Header>
 
         <Content>
-          <List
-            dataArray={datas}
-            renderRow={data =>
-              <ListItem
-                button
-                onPress={() => this.props.navigation.navigate(data.route)}
-              >
-                <Left>
-                  <Text>
-                    {data.text}
-                  </Text>
-                </Left>
-                <Right>
-                  <Icon name="arrow-forward" style={{ color: "#999" }} />
-                </Right>
-              </ListItem>}
-          />
+          
         </Content>
+
+       
+        <Card style={styles.mb}>
+            <CardItem bordered>
+              <Left>
+               <Thumbnail source={logo} /> 
+                <Body>
+                  <Text>NativeBase</Text>
+                  <Text note>April 15, 2016</Text>
+                </Body>
+              </Left>
+            </CardItem>
+
+            <CardItem>
+              <Body>
+                {/* <Image
+                  style={{
+                    alignSelf: "center",
+                    height: 150,
+                    resizeMode: "cover",
+                    width: this.deviceWidth / 1.18,
+                    marginVertical: 5,
+                    flex: 1
+                  }}
+                  source={{uri:cardImage}}
+                />  */}
+                <Text>
+                  NativeBase is a free and source framework that enable
+                  developers to build high-quality mobile apps using React
+                  Native iOS and Android apps with a fusion of ES6. NativeBase
+                  builds a layer on top of React Native that provides you with
+                  basic set of components for mobile application development.
+                </Text>
+              </Body>
+            </CardItem>
+            <CardItem style={{ paddingVertical: 0 }}>
+              <Left>
+                <Button transparent>
+                  <Icon name="logo-github" />
+                  <Text>4,923 stars</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
+
       </Container>
     );
   }
